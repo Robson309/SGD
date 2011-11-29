@@ -122,6 +122,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	int iliczba_rund;
 	char rund[512];
 	int rozmiar;
+	int liczbarund = 0;
 	//int liczba_rund;
 	cout << "przed odebranie liczby losawan" << endl;
 	do {
@@ -132,7 +133,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (int i=0; i<rozmiar; i++) {
 		cout << recvbuf[i];
 	}
-	cout << endl;
+	cout << endl << "zamiana char na liczbe" << endl;
+	for (int i=0; i<rozmiar; i++) {
+		liczbarund = liczbarund*10+(char)recvbuf[i]-48;
+	}
+	cout << "liczba jako int" << liczbarund << endl;
+
 	//cout << "sizeof" << rozmiar << endl;
 	//cout << "po odebraniu liczby" << endl;
 

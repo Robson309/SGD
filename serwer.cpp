@@ -118,7 +118,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << "przed wyslaniem liczby rund";
 	int iliczba_rund;
 	    // Send an initial buffer
-	char *rundki = "dziesiec";
+	char *rundki = "10";
 	send( ClientSocket[0], rundki, (int)strlen(rundki), 0 );
 	send( ClientSocket[1], rundki, (int)strlen(rundki), 0 );
 	cout << ClientSocket[0] << endl;
