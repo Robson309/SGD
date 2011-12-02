@@ -110,7 +110,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	#define DEFAULT_BUFLEN 512
 	
-	char recvbuf[DEFAULT_BUFLEN];
+	//char recvbuf[DEFAULT_BUFLEN];
 	//int iResult;
 	int iSendResult;
 	int recvbuflen = DEFAULT_BUFLEN;
@@ -119,10 +119,20 @@ int _tmain(int argc, _TCHAR* argv[])
 	int iliczba_rund;
 	    // Send an initial buffer
 	char *rundki = "10";
+	int recvresult = 0;
+	//do {
 	send( ClientSocket[0], rundki, (int)strlen(rundki), 0 );
+	//} while (recvresult>0);
 	send( ClientSocket[1], rundki, (int)strlen(rundki), 0 );
-	cout << ClientSocket[0] << endl;
-	cout << ClientSocket[1] << endl;
+
+	//odebranie true lub false
+	char recvbuf[DEFAULT_BUFLEN];
+	cout << "przed odebraniem" << endl;
+	recv(ClientSocket[0], recvbuf, recvbuflen, 0);
+	cout << "po odebraniu" << recvbuf << endl;
+	recv(ClientSocket[1], recvbuf, recvbuflen, 0);	
+	cout << "po odebraniu" << recvbuf << endl;
+	//cout << ClientSocket[1] << endl;
 
 	// Receive until the peer shuts down the connection
 	/*do {

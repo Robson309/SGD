@@ -95,28 +95,28 @@ int _tmain(int argc, _TCHAR* argv[])
 	#define DEFAULT_BUFLEN 512
 	int recvbuflen = DEFAULT_BUFLEN;
 	
-	char *sendbuf = "this is a test";
+	//char *sendbuf = "this is a test";
 	char recvbuf[DEFAULT_BUFLEN];
 
 	// Send an initial buffer
-	iResult = send(ConnectSocket, sendbuf, (int) strlen(sendbuf), 0);
+	/*iResult = send(ConnectSocket, sendbuf, (int) strlen(sendbuf), 0);
 	if (iResult == SOCKET_ERROR) {
 		printf("send failed: %d\n", WSAGetLastError());
 		closesocket(ConnectSocket);
 		WSACleanup();
 		return 1;
-	}
+	}*/
 	
-	printf("Bytes Sent: %ld\n", iResult);
+	//printf("Bytes Sent: %ld\n", iResult);
 	// shutdown the connection for sending since no more data will be sent
 	// the client can still use the ConnectSocket for receiving data
-	iResult = shutdown(ConnectSocket, SD_SEND);
+	/*iResult = shutdown(ConnectSocket, SD_SEND);
 	if (iResult == SOCKET_ERROR) {
 		printf("shutdown failed: %d\n", WSAGetLastError());
 		closesocket(ConnectSocket);
 		WSACleanup();
 		return 1;
-	}
+	}*/
 
 	// odebranie liczby losowan
 	int iliczba_rund;
@@ -125,10 +125,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	int liczbarund = 0;
 	//int liczba_rund;
 	cout << "przed odebranie liczby losawan" << endl;
-	do {
-		rozmiar = recv(ConnectSocket, recvbuf, recvbuflen, 0);
-	} while (iResult > 0);
-	//iResult = 0;
+	rozmiar = recv(ConnectSocket, recvbuf, recvbuflen, 0);
 	cout << "liczba rund ";
 	for (int i=0; i<rozmiar; i++) {
 		cout << recvbuf[i];
@@ -138,6 +135,15 @@ int _tmain(int argc, _TCHAR* argv[])
 		liczbarund = liczbarund*10+(char)recvbuf[i]-48;
 	}
 	cout << "liczba jako int" << liczbarund << endl;
+
+	// Send an initial buffer
+	char *sendbuf = "this is a test";
+	cout << "iResult" << iResult << endl;
+
+	//send tru lub false
+	char *sendbuf = "true";
+	send(ConnectSocket, sendbuf, (int)strlen(sendbuf), 0);
+	
 
 	//cout << "sizeof" << rozmiar << endl;
 	//cout << "po odebraniu liczby" << endl;
