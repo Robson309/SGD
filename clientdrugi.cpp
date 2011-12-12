@@ -31,14 +31,22 @@ int _tmain(int argc, _TCHAR* argv[])
 	struct addrinfo *result = NULL,
                 *ptr = NULL,
                 hints;
+<<<<<<< .merge_file_LD9F56
 
+=======
+	
+>>>>>>> .merge_file_GCQkOD
 	ZeroMemory( &hints, sizeof(hints) );
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP;
 
 	#define DEFAULT_PORT "27015"
+<<<<<<< .merge_file_LD9F56
 
+=======
+	
+>>>>>>> .merge_file_GCQkOD
 	// Resolve the server address and port
 	iResult = getaddrinfo("127.0.0.1", DEFAULT_PORT, &hints, &result);
 	if (iResult != 0) {
@@ -52,7 +60,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	// Attempt to connect to the first address returned by
 	// the call to getaddrinfo
 	ptr=result;
+<<<<<<< .merge_file_LD9F56
 
+=======
+	
+>>>>>>> .merge_file_GCQkOD
 	// Create a SOCKET for connecting to server
 	ConnectSocket = socket(ptr->ai_family, ptr->ai_socktype, 
 		ptr->ai_protocol);
@@ -73,14 +85,24 @@ int _tmain(int argc, _TCHAR* argv[])
 		closesocket(ConnectSocket);
 		ConnectSocket = INVALID_SOCKET;
 	}
+<<<<<<< .merge_file_LD9F56
 
+=======
+	
+>>>>>>> .merge_file_GCQkOD
 	// Should really try the next address returned by getaddrinfo
 	// if the connect call failed
 	// But for this simple example we just free the resources
 	// returned by getaddrinfo and print an error message
+<<<<<<< .merge_file_LD9F56
 
 	freeaddrinfo(result);
 
+=======
+	
+	freeaddrinfo(result);
+	
+>>>>>>> .merge_file_GCQkOD
 	if (ConnectSocket == INVALID_SOCKET) {
 		printf("Unable to connect to server!\n");
 		WSACleanup();
@@ -93,6 +115,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	#define DEFAULT_BUFLEN 512
 	int recvbuflen = DEFAULT_BUFLEN;
+<<<<<<< .merge_file_LD9F56
 
 	char recvbuf[DEFAULT_BUFLEN];
 
@@ -102,12 +125,30 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << "przed odebranie liczby losawan" << endl;
 	rozmiar = recv(ConnectSocket,  (char *)&liczbarund, sizeof(liczbarund), 0);
 	cout << "liczba rund: " << liczbarund << endl;
+=======
+	
+	char recvbuf[DEFAULT_BUFLEN];
+
+	// odebranie liczby losowanz
+	int rozmiar;
+	int liczbarund = 0;
+	cout << "przed odebranie liczby losawan" << endl;
+	recv(ConnectSocket, (char*)&liczbarund, sizeof(liczbarund), 0);
+	cout << "liczba jako int" << liczbarund << endl;
+
+	// Send an initial buffer
+	cout << "iResult" << iResult << endl;
+>>>>>>> .merge_file_GCQkOD
 
 	//send tru lub false
 	char *jeden = "1";
 	char *zero ="0";
 	srand((unsigned) time(0));
+<<<<<<< .merge_file_LD9F56
 	char *przeciwnik = new char[liczbarund];
+=======
+	char przeciwnik[100];
+>>>>>>> .merge_file_GCQkOD
 	//pierwsze zagranie losowe
 	int suma=0;
 	if ((rand() % 5)%2) {
@@ -141,6 +182,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		przeciwnik[i]=recvbuf[0];
 		Sleep(15);
 	}
+	cout << "przeciwnik"<< przeciwnik <<endl;
 
 	cout << "Przeciwnik ";
 	for (int i=0; i<liczbarund; i++) {
@@ -149,7 +191,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << endl;
 	//odebranie informacji o wyniku
 	char wynik[50];
+<<<<<<< .merge_file_LD9F56
 	rozmiar=recv(ConnectSocket, wynik, sizeof(wynik), 0);
+=======
+	rozmiar=recv(ConnectSocket, wynik, 50, 0);
+>>>>>>> .merge_file_GCQkOD
 	for (int i=0; i<rozmiar; i++) {
 		cout << wynik[i];
 	}
@@ -158,7 +204,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	closesocket(ConnectSocket);
 	WSACleanup();
 
+<<<<<<< .merge_file_LD9F56
 	cout << "Koniec gry.";
+=======
+	cout << "koniec gry";
+>>>>>>> .merge_file_GCQkOD
 	getchar();
     return 0;
 }
