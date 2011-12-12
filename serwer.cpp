@@ -14,18 +14,24 @@ WSADATA wsaData;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+<<<<<<< .merge_file_BWYYpP
 <<<<<<< .merge_file_Eq715z
 	//trzeba podac liczbe rund
 	int liczbarund = 200;
 	char *graczzero = new char[liczbarund];
 	char *graczjeden = new char[liczbarund];
 =======
+=======
+>>>>>>> .merge_file_Ebs3Rz
 	//trzeba podac liczbe rund oraz okreslic rozmiar tablicz
 	char *rundki = "100";
 	int liczbarund = 100;
 	char graczzero[100];
 	char graczjeden[100];
+<<<<<<< .merge_file_BWYYpP
 >>>>>>> .merge_file_7P0pyn
+=======
+>>>>>>> .merge_file_Ebs3Rz
 	int iResult;
 	// Initialize Winsock
 	iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
@@ -136,6 +142,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	for(int i =0;i<liczbarund;i++){
 		//odebranie wartosci
 		recv(ClientSocket[0], zero, 1, 0);
+<<<<<<< .merge_file_BWYYpP
 <<<<<<< .merge_file_Eq715z
 		cout << "odebranie" << i << endl;
 		cout << "clientzero odebrano" <<zero[0] << endl;
@@ -144,12 +151,17 @@ int _tmain(int argc, _TCHAR* argv[])
 		graczjeden[i]=(int)jeden[0]-48;
 		cout << "clientjeden odebrano" <<jeden[0] << endl;
 =======
+=======
+>>>>>>> .merge_file_Ebs3Rz
 		cout << "clientzero odebranie" << i << "odebrano" <<zero[0] << endl;
 		graczzero[i]= (int)zero[0]-48;
 		recv(ClientSocket[1], jeden, 1, 0);
 		graczjeden[i]=(int)jeden[0]-48;
 		cout << "clientjeden odebranie" << i << "odebrano" <<jeden[0] << endl;
+<<<<<<< .merge_file_BWYYpP
 >>>>>>> .merge_file_7P0pyn
+=======
+>>>>>>> .merge_file_Ebs3Rz
 		Sleep(150);
 		//przeslanie dalej wartosci
 		send( ClientSocket[0], jeden, 1, 0 );
@@ -163,6 +175,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		if ((int)graczzero[i] == 1 && (int)graczjeden[i]==1){
 			wynikzero=wynikzero+1;
 			wynikjeden=wynikjeden+1;
+<<<<<<< .merge_file_BWYYpP
 		}
 		else if ((int)graczzero[i] == 0 && (int)graczjeden[i]==0){
 			wynikzero=wynikzero+5;
@@ -174,6 +187,19 @@ int _tmain(int argc, _TCHAR* argv[])
 		else if ((int)graczzero[i] == 0 && (int)graczjeden[i]==1){
 			wynikzero=wynikzero+10;
 		}
+=======
+		}
+		else if ((int)graczzero[i] == 0 && (int)graczjeden[i]==0){
+			wynikzero=wynikzero+5;
+			wynikjeden=wynikjeden+5;
+		}
+		else if ((int)graczzero[i] == 1 && (int)graczjeden[i]==0){
+			wynikjeden=wynikjeden+10;
+		}
+		else if ((int)graczzero[i] == 0 && (int)graczjeden[i]==1){
+			wynikzero=wynikzero+10;
+		}
+>>>>>>> .merge_file_Ebs3Rz
 		cout << "wynik zero " << wynikzero << endl;
 		cout << "wynik jeden" << wynikjeden << endl;
 	}
@@ -183,6 +209,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	//wyslanie informacji o wyniku
 	//oraz wyswietlenie zwyciescy
 	if (wynikzero>wynikjeden){
+<<<<<<< .merge_file_BWYYpP
 <<<<<<< .merge_file_Eq715z
 		cout << "Wygral gracz jeden" <<endl;
 		send( ClientSocket[0], "Przegrales", (int)strlen("Przegrales"), 0 );
@@ -198,6 +225,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		send( ClientSocket[0], "Remis", (int)strlen("Remis"), 0 );
 		send( ClientSocket[1], "Remis", (int)strlen("Remis"), 0 );
 =======
+=======
+>>>>>>> .merge_file_Ebs3Rz
 		cout << "wygral gracz jeden" <<endl;
 		send( ClientSocket[0], "przegrales", (int)strlen("przegrales"), 0 );
 		send( ClientSocket[1], "wygrales", (int)strlen("wygrales"), 0 );
@@ -211,7 +240,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		cout << "gra zakonczona remisem" <<endl;
 		send( ClientSocket[0], "remis", (int)strlen("remis"), 0 );
 		send( ClientSocket[1], "remis", (int)strlen("remis"), 0 );
+<<<<<<< .merge_file_BWYYpP
 >>>>>>> .merge_file_7P0pyn
+=======
+>>>>>>> .merge_file_Ebs3Rz
 	}
 
 
@@ -228,11 +260,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	closesocket(ClientSocket[id_socket]);
 	WSACleanup();
 
+<<<<<<< .merge_file_BWYYpP
 <<<<<<< .merge_file_Eq715z
 	cout << "Koniec gry.";
 =======
 	cout << "koniec gry";
 >>>>>>> .merge_file_7P0pyn
+=======
+	cout << "koniec gry";
+>>>>>>> .merge_file_Ebs3Rz
 	getchar();
 	return 0;
 }

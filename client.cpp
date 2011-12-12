@@ -101,9 +101,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	int liczbarund = 0;
 	cout << "przed odebranie liczby losawan" << endl;
 	rozmiar = recv(ConnectSocket,  (char *)&liczbarund, sizeof(liczbarund), 0);
+<<<<<<< .merge_file_kjq2gS
 <<<<<<< .merge_file_k2fJcw
 	cout << "liczba rund: " << liczbarund << endl;
 =======
+=======
+>>>>>>> .merge_file_Zmq2gI
 	cout << "liczba rund" << liczbarund << endl;
 
 	// Send an initial buffer
@@ -114,6 +117,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	char *jeden = "1";
 	char *zero ="0";
 	srand((unsigned) time(0));
+<<<<<<< .merge_file_kjq2gS
 <<<<<<< .merge_file_k2fJcw
 	char *przeciwnik = new char[liczbarund];
 	for(int i =0;i<liczbarund;i++){
@@ -136,15 +140,29 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		else {
 			send( ConnectSocket, "0", 1, 0 );
+=======
+	char przeciwnik[100];
+	for(int i =0;i<liczbarund;i++){
+		if ((rand() % 5)%2) {
+			send( ConnectSocket, "1", 1, 0 );
+			cout << "losowanie " << i << "wyslano " << jeden << endl;
+		}
+		else {
+			send( ConnectSocket, "0", 1, 0 );
+>>>>>>> .merge_file_Zmq2gI
 			cout << "losowanie " << i << "wyslano " << zero << endl;
 		}
 		recv(ConnectSocket, recvbuf, recvbuflen, 0);
 		cout << "odebrano " << recvbuf[0] << endl;
+<<<<<<< .merge_file_kjq2gS
 >>>>>>> .merge_file_1fWfxl
+=======
+>>>>>>> .merge_file_Zmq2gI
 		przeciwnik[i]=recvbuf[0];
 		Sleep(15);
 	}
 
+<<<<<<< .merge_file_kjq2gS
 <<<<<<< .merge_file_k2fJcw
 	cout << "Przeciwnik ";
 	for (int i=0; i<liczbarund; i++) {
@@ -155,12 +173,17 @@ int _tmain(int argc, _TCHAR* argv[])
 	char wynik[50];
 	rozmiar=recv(ConnectSocket, wynik, sizeof(wynik), 0);
 =======
+=======
+>>>>>>> .merge_file_Zmq2gI
 	cout << "przeciwnik"<< przeciwnik <<endl;
 
 	//odebranie informacji o wyniku
 	char wynik[50];
 	rozmiar=recv(ConnectSocket, wynik, 50, 0);
+<<<<<<< .merge_file_kjq2gS
 >>>>>>> .merge_file_1fWfxl
+=======
+>>>>>>> .merge_file_Zmq2gI
 	for (int i=0; i<rozmiar; i++) {
 		cout << wynik[i];
 	}
@@ -169,11 +192,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	closesocket(ConnectSocket);
 	WSACleanup();
 
+<<<<<<< .merge_file_kjq2gS
 <<<<<<< .merge_file_k2fJcw
 	cout << "Koniec gry.";
 =======
 	cout << "koniec gry";
 >>>>>>> .merge_file_1fWfxl
+=======
+	cout << "koniec gry";
+>>>>>>> .merge_file_Zmq2gI
 	getchar();
     return 0;
 }
