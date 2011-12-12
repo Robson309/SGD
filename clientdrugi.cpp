@@ -108,17 +108,36 @@ int _tmain(int argc, _TCHAR* argv[])
 	char *zero ="0";
 	srand((unsigned) time(0));
 	char *przeciwnik = new char[liczbarund];
-	for(int i =0;i<liczbarund;i++){
-		if ((rand() % 5)%2) {
-			send( ConnectSocket, "1", 1, 0 );
-			cout << "Losowanie " << i << "wyslano " << jeden << endl;
+	//pierwsze zagranie losowe
+	int suma=0;
+	if ((rand() % 5)%2) {
+		send( ConnectSocket, "1", 1, 0 );
+		cout << "losowanie pierwsze " << "wyslano " << jeden << endl;
+	}
+	else {
+		send( ConnectSocket, "0", 1, 0 );
+		cout << "losowanie pierwsze " << "wyslano " << zero << endl;
+	}
+	recv(ConnectSocket, recvbuf, recvbuflen, 0);
+	suma+=(char)recvbuf[0]-48;
+	cout << "odebrano " << recvbuf[0] << endl;
+	przeciwnik[0]=recvbuf[0];
+
+	//dalsze zagrania
+	for(int i=1;i<liczbarund;i++){
+		cout << suma <<" i=" << i;
+		//jesli zagral wiecej niz polowe razy unfair
+		if ((i/2)<suma) {
+			send( ConnectSocket, "0", 1, 0 );
+			cout << "losowanie " << i << "wyslano 0 bo za czesto zdradza" << endl;
 		}
 		else {
-			send( ConnectSocket, "0", 1, 0 );
-			cout << "Losowanie " << i << "wyslano " << zero << endl;
+			send( ConnectSocket, "1", 1, 0 );
+			cout << "wyslano 1 bo jest OK" << endl;
 		}
 		recv(ConnectSocket, recvbuf, recvbuflen, 0);
-		cout << "Odebrano " << recvbuf[0] << endl;
+		suma+=(char)recvbuf[0]-48;
+		cout << "odebrano " << recvbuf[0] << endl;
 		przeciwnik[i]=recvbuf[0];
 		Sleep(15);
 	}

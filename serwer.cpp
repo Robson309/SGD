@@ -14,8 +14,10 @@ WSADATA wsaData;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	int liczbarund = 10;
-	cout << "test";
+	//trzeba podac liczbe rund
+	int liczbarund = 200;
+	char *graczzero = new char[liczbarund];
+	char *graczjeden = new char[liczbarund];
 	int iResult;
 	// Initialize Winsock
 	iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
@@ -110,47 +112,76 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	#define DEFAULT_BUFLEN 512
 	
-	char recvbuf[DEFAULT_BUFLEN];
-	//int iResult;
-	int iSendResult;
 	int recvbuflen = DEFAULT_BUFLEN;
 	//wyslanie inforamcji o liczbie rund
-	cout << "przed wyslaniem liczby rund";
-	int iliczba_rund;
-	    // Send an initial buffer
-	char *rundki = "10";
-	send( ClientSocket[0], rundki, (int)strlen(rundki), 0 );
-	send( ClientSocket[1], rundki, (int)strlen(rundki), 0 );
-	cout << ClientSocket[0] << endl;
-	cout << ClientSocket[1] << endl;
+	cout << "przed wyslaniem liczby rund" << endl;
+	int recvresult = 0;
+	send (ClientSocket[0], (char*)&liczbarund, sizeof(liczbarund), 0);
+	send (ClientSocket[1], (char*)&liczbarund, sizeof(liczbarund), 0);
 
-	// Receive until the peer shuts down the connection
-	/*do {
-		iResult = recv(ClientSocket[id_socket], recvbuf, recvbuflen, 0);
-		if (iResult > 0) {
-			printf("Bytes received: %d\n", iResult);
-			for(int i=0; i<iResult; i++){
-				cout << recvbuf[i];
-			}
-			cout << endl;
-			// Echo the buffer back to the sender
-			iSendResult = send(ClientSocket[id_socket], recvbuf, iResult, 0);
-			if (iSendResult == SOCKET_ERROR) {
-				printf("send failed: %d\n", WSAGetLastError());
-				closesocket(ClientSocket[id_socket]);
-				WSACleanup();
-				return 1;
-			}
-			printf("Bytes sent: %d\n", iSendResult);
-		} else if (iResult == 0)
-			printf("Connection closing...\n");
-		else {
-			printf("recv failed: %d\n", WSAGetLastError());
-			closesocket(ClientSocket[id_socket]);
-			WSACleanup();
-			return 1;
+	//odbieranie true lub false
+	char zero[DEFAULT_BUFLEN];
+	char jeden[DEFAULT_BUFLEN];
+	int zer = DEFAULT_BUFLEN;
+	int jed = DEFAULT_BUFLEN;
+	cout << "przed odebraniem" << endl;
+	for(int i =0;i<liczbarund;i++){
+		//odebranie wartosci
+		recv(ClientSocket[0], zero, 1, 0);
+		cout << "odebranie" << i << endl;
+		cout << "clientzero odebrano" <<zero[0] << endl;
+		graczzero[i]= (int)zero[0]-48;
+		recv(ClientSocket[1], jeden, 1, 0);
+		graczjeden[i]=(int)jeden[0]-48;
+		cout << "clientjeden odebrano" <<jeden[0] << endl;
+		Sleep(150);
+		//przeslanie dalej wartosci
+		send( ClientSocket[0], jeden, 1, 0 );
+		send( ClientSocket[1], zero, 1, 0 );
+	}
+	//obliczanie wyniku
+	//przyjecie ze 1 to fair 0 unfair
+	int wynikzero=0;
+	int wynikjeden=0;
+	for(int i =0;i<liczbarund;i++){
+		if ((int)graczzero[i] == 1 && (int)graczjeden[i]==1){
+			wynikzero=wynikzero+1;
+			wynikjeden=wynikjeden+1;
 		}
-	} while (iResult > 0);*/
+		else if ((int)graczzero[i] == 0 && (int)graczjeden[i]==0){
+			wynikzero=wynikzero+5;
+			wynikjeden=wynikjeden+5;
+		}
+		else if ((int)graczzero[i] == 1 && (int)graczjeden[i]==0){
+			wynikjeden=wynikjeden+10;
+		}
+		else if ((int)graczzero[i] == 0 && (int)graczjeden[i]==1){
+			wynikzero=wynikzero+10;
+		}
+		cout << "wynik zero " << wynikzero << endl;
+		cout << "wynik jeden" << wynikjeden << endl;
+	}
+	cout << "wynik zero " << wynikzero << endl;
+	cout << "wynik jeden" << wynikjeden << endl;
+	
+	//wyslanie informacji o wyniku
+	//oraz wyswietlenie zwyciescy
+	if (wynikzero>wynikjeden){
+		cout << "Wygral gracz jeden" <<endl;
+		send( ClientSocket[0], "Przegrales", (int)strlen("Przegrales"), 0 );
+		send( ClientSocket[1], "Wygrales", (int)strlen("Wygrales"), 0 );
+	}
+	else if (wynikzero<wynikjeden){
+		cout << "Wygral gracz zero" <<endl;
+		send( ClientSocket[0], "Wygrales", (int)strlen("Wygrales"), 0 );
+		send( ClientSocket[1], "Przegrales", (int)strlen("Przegrales"), 0 );
+	}
+	else {
+		cout << "Gra zakonczona remisem." <<endl;
+		send( ClientSocket[0], "Remis", (int)strlen("Remis"), 0 );
+		send( ClientSocket[1], "Remis", (int)strlen("Remis"), 0 );
+	}
+
 
 	// shutdown the send half of the connection since no more data will be sent
 	iResult = shutdown(ClientSocket[id_socket], SD_SEND);
@@ -165,7 +196,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	closesocket(ClientSocket[id_socket]);
 	WSACleanup();
 
-	cout << "ubba";
+	cout << "Koniec gry.";
 	getchar();
 	return 0;
 }
