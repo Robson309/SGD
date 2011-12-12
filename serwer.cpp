@@ -112,12 +112,38 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	#define DEFAULT_BUFLEN 512
 	
+<<<<<<< HEAD
 	int recvbuflen = DEFAULT_BUFLEN;
 	//wyslanie inforamcji o liczbie rund
 	cout << "przed wyslaniem liczby rund" << endl;
 	int recvresult = 0;
 	send (ClientSocket[0], (char*)&liczbarund, sizeof(liczbarund), 0);
 	send (ClientSocket[1], (char*)&liczbarund, sizeof(liczbarund), 0);
+=======
+	//char recvbuf[DEFAULT_BUFLEN];
+	//int iResult;
+	int iSendResult;
+	int recvbuflen = DEFAULT_BUFLEN;
+	//wyslanie inforamcji o liczbie rund
+	cout << "przed wyslaniem liczby rund";
+	int iliczba_rund;
+	    // Send an initial buffer
+	char *rundki = "10";
+	int recvresult = 0;
+	//do {
+	send( ClientSocket[0], rundki, (int)strlen(rundki), 0 );
+	//} while (recvresult>0);
+	send( ClientSocket[1], rundki, (int)strlen(rundki), 0 );
+
+	//odebranie true lub false
+	char recvbuf[DEFAULT_BUFLEN];
+	cout << "przed odebraniem" << endl;
+	recv(ClientSocket[0], recvbuf, recvbuflen, 0);
+	cout << "po odebraniu" << recvbuf << endl;
+	recv(ClientSocket[1], recvbuf, recvbuflen, 0);	
+	cout << "po odebraniu" << recvbuf << endl;
+	//cout << ClientSocket[1] << endl;
+>>>>>>> origin/robson
 
 	//odbieranie true lub false
 	char zero[DEFAULT_BUFLEN];

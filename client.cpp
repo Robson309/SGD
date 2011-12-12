@@ -93,13 +93,40 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	#define DEFAULT_BUFLEN 512
 	int recvbuflen = DEFAULT_BUFLEN;
+<<<<<<< HEAD
 
 	char recvbuf[DEFAULT_BUFLEN];
+=======
+	
+	//char *sendbuf = "this is a test";
+	char recvbuf[DEFAULT_BUFLEN];
+
+	// Send an initial buffer
+	/*iResult = send(ConnectSocket, sendbuf, (int) strlen(sendbuf), 0);
+	if (iResult == SOCKET_ERROR) {
+		printf("send failed: %d\n", WSAGetLastError());
+		closesocket(ConnectSocket);
+		WSACleanup();
+		return 1;
+	}*/
+	
+	//printf("Bytes Sent: %ld\n", iResult);
+	// shutdown the connection for sending since no more data will be sent
+	// the client can still use the ConnectSocket for receiving data
+	/*iResult = shutdown(ConnectSocket, SD_SEND);
+	if (iResult == SOCKET_ERROR) {
+		printf("shutdown failed: %d\n", WSAGetLastError());
+		closesocket(ConnectSocket);
+		WSACleanup();
+		return 1;
+	}*/
+>>>>>>> origin/robson
 
 	// odebranie liczby losowan
 	int rozmiar;
 	int liczbarund = 0;
 	cout << "przed odebranie liczby losawan" << endl;
+<<<<<<< HEAD
 	rozmiar = recv(ConnectSocket,  (char *)&liczbarund, sizeof(liczbarund), 0);
 	cout << "liczba rund: " << liczbarund << endl;
 
@@ -126,6 +153,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	cout << "Przeciwnik ";
 	for (int i=0; i<liczbarund; i++) {
 		cout << przeciwnik[i];
+=======
+	rozmiar = recv(ConnectSocket, recvbuf, recvbuflen, 0);
+	cout << "liczba rund ";
+	for (int i=0; i<rozmiar; i++) {
+		cout << recvbuf[i];
+>>>>>>> origin/robson
 	}
 	cout << endl;
 	//odebranie informacji o wyniku
@@ -134,7 +167,48 @@ int _tmain(int argc, _TCHAR* argv[])
 	for (int i=0; i<rozmiar; i++) {
 		cout << wynik[i];
 	}
+<<<<<<< HEAD
 	cout << endl;
+=======
+	cout << "liczba jako int" << liczbarund << endl;
+
+	// Send an initial buffer
+	char *sendbuf = "this is a test";
+	cout << "iResult" << iResult << endl;
+
+	//send tru lub false
+	char *sendbuf = "true";
+	send(ConnectSocket, sendbuf, (int)strlen(sendbuf), 0);
+	
+
+	//cout << "sizeof" << rozmiar << endl;
+	//cout << "po odebraniu liczby" << endl;
+
+	//cout << "po odebraniu liczby losawan" << liczba_rund;
+	
+	// Receive data until the server closes the connection
+	/*do {
+		iResult = recv(ConnectSocket, recvbuf, recvbuflen, 0);
+		if (iResult > 0){
+			printf("Bytes received: %d\n", iResult);
+			cout << recvbuf << endl;
+		}
+		else if (iResult == 0)
+			printf("Connection closed\n");
+		else
+			printf("recv failed: %d\n", WSAGetLastError());
+	} while (iResult > 0);
+	
+	// shutdown the send half of the connection since no more data will be sent
+	iResult = shutdown(ConnectSocket, SD_SEND);
+	if (iResult == SOCKET_ERROR) {
+		printf("shutdown failed: %d\n", WSAGetLastError());
+		closesocket(ConnectSocket);
+		WSACleanup();
+		return 1;
+	}*/
+
+>>>>>>> origin/robson
 	// cleanup
 	closesocket(ConnectSocket);
 	WSACleanup();
