@@ -13,10 +13,11 @@ int main(int argc, char** argv[])
 	ofstream prisoner2;
 
 	prisoner2.open(prisoner2_choice.c_str(), ios::app);
-	srand( time(NULL) );
-	
-		if ((rand() % 100)%2) prisoner2 << "F";
-			else prisoner2 << "U";
+		//srand( time(NULL) );
+	//--always UNFAIR
+		//if ((rand() % 2)%2) prisoner2 << "F";
+			//else 
+	prisoner2 << "U";
 
 	prisoner2.close();
 
